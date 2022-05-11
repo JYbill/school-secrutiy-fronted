@@ -111,22 +111,14 @@ const toDetail = (type: string) => {
 
     <div class="header">
       <n-carousel autoplay show-arrow dot-type="line">
-        <img
-          class="carousel-img"
-          src="https://img2.baidu.com/it/u=3882703997,21461129&fm=253&fmt=auto&app=138&f=JPEG?w=886&h=500"
-        />
-        <img
-          class="carousel-img"
-          src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0160e45c987d2fa801208f8b40f0c0.jpg%402o.jpg&refer=http%3A%2F%2Fimg.zcool.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1648805195&t=61fe7ae2a3fc076e3e0e9a3370ad08f0"
-        />
-        <img
-          class="carousel-img"
-          src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2F01.minipic.eastday.com%2F20170818%2F20170818165552_af7ce87c8a468e499d0ebd0336b423ad_10.jpeg&refer=http%3A%2F%2F01.minipic.eastday.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1648805195&t=292b0e075f65ace0938e8da195464fcd"
-        />
-        <img
-          class="carousel-img"
-          src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fjjkfq.gyjye.cn%2F__local%2F2%2F01%2F43%2FDDB79E09A95F28C1A2CA295338A_564EA88A_28EDE8.jpg&refer=http%3A%2F%2Fjjkfq.gyjye.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1648805195&t=5e07d79d645c7713fbf5fd633665d6fd"
-        />
+        <img class="carousel-img"
+          src="https://img2.baidu.com/it/u=3882703997,21461129&fm=253&fmt=auto&app=138&f=JPEG?w=886&h=500" />
+        <img class="carousel-img"
+          src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0160e45c987d2fa801208f8b40f0c0.jpg%402o.jpg&refer=http%3A%2F%2Fimg.zcool.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1648805195&t=61fe7ae2a3fc076e3e0e9a3370ad08f0" />
+        <img class="carousel-img"
+          src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2F01.minipic.eastday.com%2F20170818%2F20170818165552_af7ce87c8a468e499d0ebd0336b423ad_10.jpeg&refer=http%3A%2F%2F01.minipic.eastday.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1648805195&t=292b0e075f65ace0938e8da195464fcd" />
+        <img class="carousel-img"
+          src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fjjkfq.gyjye.cn%2F__local%2F2%2F01%2F43%2FDDB79E09A95F28C1A2CA295338A_564EA88A_28EDE8.jpg&refer=http%3A%2F%2Fjjkfq.gyjye.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1648805195&t=5e07d79d645c7713fbf5fd633665d6fd" />
       </n-carousel>
     </div>
 
@@ -175,18 +167,10 @@ const toDetail = (type: string) => {
           {{ index === 0 ? '反诈骗信息' : '' }}
           {{ index === 1 ? '校园安全信息' : '' }}
         </div>
-        <div
-          class="content"
-          v-if="index === 0"
-          v-for="item in schoolData"
-          @click="router.push(`/detail?type=security&id=${item.id}`)"
-        >{{ item.title }}</div>
-        <div
-          class="content"
-          v-if="index === 1"
-          v-for="item in securityData"
-          @click="router.push(`/detail?type=school&id=${item.id}`)"
-        >{{ item.title }}</div>
+        <div class="content" v-if="index === 0" v-for="item in schoolData"
+          @click="router.push(`/detail?type=security&id=${item.id}`)">{{ item.title }}</div>
+        <div class="content" v-if="index === 1" v-for="item in securityData"
+          @click="router.push(`/detail?type=school&id=${item.id}`)">{{ item.title }}</div>
         <span>...</span>
         <div class="container-footer">
           <n-button v-if="index === 0" type="warning" @click="toDetail('security')">查看更多</n-button>
@@ -212,6 +196,7 @@ const toDetail = (type: string) => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #b9b9b9;
 
   .header {
     // background-color: rgba($color: #f2f6ff, $alpha: 1);
@@ -267,6 +252,7 @@ const toDetail = (type: string) => {
           color: #b61e1b;
           margin-top: 10px;
         }
+
         h1 {
           font-size: 25px;
           margin: 0;
@@ -277,6 +263,7 @@ const toDetail = (type: string) => {
         h1 {
           color: #a83bc9 !important;
         }
+
         background-color: #fdf7ff;
       }
 
@@ -284,12 +271,15 @@ const toDetail = (type: string) => {
         h1 {
           color: #dc1611 !important;
         }
+
         background-color: #fef4f4;
       }
+
       div:nth-of-type(3) {
         h1 {
           color: #b61e1b !important;
         }
+
         background-color: #fefaf7;
       }
     }

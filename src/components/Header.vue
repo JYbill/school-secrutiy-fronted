@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { reactive, ref, onMounted, popScopeId } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import { NButton, NAvatar, NDropdown } from 'naive-ui'
 import { xiaoQinVarUtils } from '@/utils/encapsulation.util';
 import router from '@/router';
-import { parse } from '.pnpm/registry.npmmirror.com+@vue+compiler-dom@3.2.31/node_modules/@vue/compiler-dom';
 
 defineProps({
   showAvatar: {
@@ -88,12 +87,8 @@ const toHome = () => router.push({ name: 'home' })
     <div class="info">
       <n-dropdown v-if="showAvatar" trigger="hover" :options="avatarOpt" :on-select="selectFunc">
         <n-avatar v-if="isLogin" round :size="48" src="https://deno.land/logo.svg" />
-        <n-avatar
-          v-else="isLogin"
-          round
-          :size="48"
-          src="https://img2.baidu.com/it/u=2441105273,940716564&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"
-        />
+        <n-avatar v-else="isLogin" round :size="48"
+          src="https://img2.baidu.com/it/u=2441105273,940716564&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500" />
       </n-dropdown>
       <n-button type="info" @click="$router.replace({ name: 'admin' })" v-if="showAdmin">管理员入口</n-button>
     </div>
@@ -107,8 +102,10 @@ const toHome = () => router.push({ name: 'home' })
   $height: 50px;
 
   width: 100%;
-
+  box-sizing: border-box;
   height: $height;
+  background-color: #999;
+  box-shadow: 2px 2px 10px #666;
   // margin-bottom: $height;
 
   .title {
@@ -116,6 +113,7 @@ const toHome = () => router.push({ name: 'home' })
     top: -15px;
     left: 10px;
     display: flex;
+    border: 1px;
 
     img {
       $w-h: 30px;
@@ -126,6 +124,7 @@ const toHome = () => router.push({ name: 'home' })
       margin-right: 10px;
     }
   }
+
   .info {
     display: flex;
     align-items: center;
@@ -133,9 +132,11 @@ const toHome = () => router.push({ name: 'home' })
     height: 100%;
 
     $right: 20px;
+
     .n-avatar {
       margin-right: $right;
     }
+
     .n-button {
       margin-right: $right;
     }

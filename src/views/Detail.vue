@@ -214,12 +214,8 @@ const reportArticle = () => {
 
   <n-grid x-gap="12" :cols="10">
     <n-gi class="nav" :span="2">
-      <n-menu
-        :options="menuOptions"
-        :default-expand-all="true"
-        :on-update:value="clickMenuFunc"
-        :value="defaultSelect"
-      />
+      <n-menu :options="menuOptions" :default-expand-all="true" :on-update:value="clickMenuFunc"
+        :value="defaultSelect" />
     </n-gi>
     <n-gi :span="8">
       <div class="detail">
@@ -248,6 +244,7 @@ const reportArticle = () => {
   border: 1px solid black;
   text-align: left;
   border-radius: 0 10px 10px 0;
+  background-color: #333;
 
   .n-menu {
     .n-menu-item-group-title {
@@ -266,6 +263,7 @@ const reportArticle = () => {
   border-radius: 10px;
   box-sizing: content-box;
   box-shadow: 1px 1px 3px #d1cdcd;
+  background-color: rgb(189, 189, 189);
 
   // 顶部图片
   .header {
@@ -281,6 +279,7 @@ const reportArticle = () => {
   // 文章信息
   .container {
     padding: 0 10px;
+
     .title {
       font-size: 14px;
       margin-bottom: 25px;

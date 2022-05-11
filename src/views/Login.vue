@@ -45,6 +45,8 @@ const clickRegister = () => {
 const usernameInput = (value: string) => username.value = value;
 const passwordInput = (value: string) => password.value = value;
 
+const goHome = () => router.replace("/");
+
 </script>
 
 
@@ -55,18 +57,29 @@ const passwordInput = (value: string) => password.value = value;
     <div class="container">
       <h1>登录</h1>
       <n-input type="text" size="large" placeholder="username" clearable :on-input="usernameInput" />
-      <n-input
-        type="password"
-        size="large"
-        placeholder="password"
-        clearable
-        :on-input="passwordInput"
-      />
+      <n-input type="password" size="large" placeholder="password" clearable :on-input="passwordInput" />
       <div class="button">
         <n-button type="info" @click="clickLogin">登录</n-button>
         <n-button type="warning" @click="clickRegister">注册</n-button>
       </div>
     </div>
+
+  </div>
+
+  <!-- 底部 -->
+  <div class="bottom">
+    <svg class="icon" aria-hidden="true" @click="goHome()">
+      <use xlink:href="#icon-shouye"></use>
+    </svg>
+    <svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-QQ"></use>
+    </svg>
+    <svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-weibo"></use>
+    </svg>
+    <svg class="icon" aria-hidden="true">
+      <use xlink:href="#icon-weixin"></use>
+    </svg>
   </div>
 </template>
 
@@ -74,11 +87,9 @@ const passwordInput = (value: string) => password.value = value;
 <style scoped lang="scss">
 .login {
   position: relative;
-  width: 50%;
-  max-width: 1000px;
-  height: 500px;
+  width: 80%;
+  height: 600px;
   margin: 30px auto;
-  // background-color: #2e2e2e;
   border-radius: 10px;
   box-shadow: 1px 1px 3px #dcdcdc;
   color: white;
@@ -100,8 +111,9 @@ const passwordInput = (value: string) => password.value = value;
 
   // 登录界面
   .container {
-    width: 50%;
     height: 50%;
+    width: 50%;
+    max-width: 300px;
     margin: 0 auto;
     position: absolute;
     left: 50%;
@@ -118,16 +130,38 @@ const passwordInput = (value: string) => password.value = value;
       line-height: 50px;
       margin-bottom: 10px;
     }
+
     .button {
       display: flex;
       justify-content: space-around;
       margin-top: 15px;
+
       .n-input {
         margin-bottom: 10px;
         height: 50px;
         border-radius: 10px;
       }
     }
+  }
+}
+
+.bottom {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  // background-color: red;
+  display: flex;
+  width: 500px;
+  justify-content: space-around;
+
+  .icon {
+    width: 3em;
+    height: 3em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+    cursor: pointer;
   }
 }
 </style>
