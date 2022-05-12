@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { reactive, Ref, ref } from 'vue';
-import { NCarousel, NButton } from 'naive-ui'
+import { onMounted, reactive, ref, Ref } from 'vue';
+import { NCarousel, NButton, NTabs, NTabPane, NIcon } from 'naive-ui'
 import { Epidemic } from '../utils/epidemic/index';
 import Header from '@/components/Header.vue';
 import { useRoute, useRouter } from 'vue-router'
@@ -19,7 +19,13 @@ type Info = {
   title: string;
 }
 
+// 生命周期
+onMounted(() => {
+  console.log(carouselRef.value)
+});
+
 // data
+const carouselRef = ref(null);
 let epidemicInfo: any = reactive({
   info: {
     localConfirm: 0,
@@ -102,6 +108,11 @@ const toDetail = (type: string) => {
       break;
   }
 }
+
+const carouselGo = (num: number) => {
+  let element: any = carouselRef.value;
+  element?.to(num);
+}
 </script>
 
 
@@ -122,6 +133,7 @@ const toDetail = (type: string) => {
       </n-carousel>
     </div>
 
+    <!-- 疫情 -->
     <div class="epidemic">
       <div class="row">
         <div>
@@ -159,24 +171,36 @@ const toDetail = (type: string) => {
       </div>
     </div>
 
+    <!-- 更多新闻 -->
     <span class="epidemic-news" @click="toDetail('news')">查看更多新闻</span>
 
+    <!-- 信息栏 -->
     <div class="container">
-      <div class="information" v-for="(item, index) in 2">
-        <div class="title">
-          {{ index === 0 ? '反诈骗信息' : '' }}
-          {{ index === 1 ? '校园安全信息' : '' }}
-        </div>
-        <div class="content" v-if="index === 0" v-for="item in schoolData"
-          @click="router.push(`/detail?type=security&id=${item.id}`)">{{ item.title }}</div>
-        <div class="content" v-if="index === 1" v-for="item in securityData"
-          @click="router.push(`/detail?type=school&id=${item.id}`)">{{ item.title }}</div>
-        <span>...</span>
-        <div class="container-footer">
-          <n-button v-if="index === 0" type="warning" @click="toDetail('security')">查看更多</n-button>
-          <n-button v-if="index === 1" type="warning" @click="toDetail('school')">查看更多</n-button>
-        </div>
-      </div>
+      <!-- 轮播图 -->
+      <n-carousel autoplay :interval="2000" direction="vertical" dot-placement="right" mousewheel
+        style="width: 100%; height: 240px">
+        <img class="carousel-img" src="@/assets/ws1.jpeg">
+        <img class="carousel-img" src="@/assets/ws2.jpeg">
+        <img class="carousel-img" src="@/assets/ws3.jpeg">
+        <img class="carousel-img" src="@/assets/ws4.jpeg">
+      </n-carousel>
+
+      <!-- 信息标签组件 -->
+      <n-tabs type="line" animated tab-style="color: #2d62ac;" pane-class="n-tabs">
+        <template v-for="(item, index) in 2">
+          <n-tab-pane :name="index === 0 ? '反诈骗信息' : '校园安全信息'" :tab="index === 0 ? '反诈骗信息' : '校园安全信息'">
+            <div class="content" v-if="index === 0" v-for="item in schoolData"
+              @click="router.push(`/detail?type=security&id=${item.id}`)">{{ item.title }}</div>
+            <div class="content" v-if="index === 1" v-for="item in securityData"
+              @click="router.push(`/detail?type=school&id=${item.id}`)">{{ item.title }}</div>
+            <span>...</span>
+            <div class="container-footer">
+              <n-button v-if="index === 0" type="warning" @click="toDetail('security')">查看更多</n-button>
+              <n-button v-if="index === 1" type="warning" @click="toDetail('school')">查看更多</n-button>
+            </div>
+          </n-tab-pane>
+        </template>
+      </n-tabs>
     </div>
 
     <div class="notification">
@@ -184,6 +208,38 @@ const toDetail = (type: string) => {
         <div class="header">❗管理员发布的通知: {{ item.title }}</div>
         <div class="content">{{ item.information }}</div>
       </div>
+    </div>
+
+    <div class="tab">
+      <span @click="carouselGo(0)">师生风采</span>
+      <span @click="carouselGo(1)">学校特色</span>
+      <span @click="carouselGo(2)">学校特色</span>
+    </div>
+    <div class="bottom-carousel">
+      <n-carousel :show-dots="false" ref="carouselRef">
+        <!-- <n-carousel :show-dots="false" ref="carouselRef" autoplay :interval="4000"> -->
+        <a href="https://mp.weixin.qq.com/s/fJZN7lPXrohQQsVw3cfxRA"><img class="carousel-img" src="@/assets/ws5.jpeg">
+          <div class="title">明天，世界读书日，我们“阅”吧
+            <p> -> </p>
+          </div>
+
+        </a>
+        <a
+          href="https://mp.weixin.qq.com/s?__biz=MzIxODI1NDMxNQ==&mid=2247530003&idx=1&sn=d237b858f2aa42fa1bdfccaf46cce3e3&chksm=97ef6897a098e1811f457e00b2d08dd69a45901491d21b175a6050bb9a3a4bd2f4d14966523d&token=1385418824&lang=zh_CN#rd">
+          <img class="carousel-img" src="@/assets/ws6.jpeg">
+          <div class="title">出圈啦，解锁武设全新打开方式之电影篇！
+            <p> -> </p>
+          </div>
+          <span>-></span>
+        </a>
+        <a href="https://www.wids.edu.cn/view/12603.html">
+          <img class="carousel-img" src="@/assets/ws7.jpeg">
+          <div class="title">创意集市，带你走进不一样的校园
+            <p> -> </p>
+          </div>
+          <span>-></span>
+        </a>
+      </n-carousel>
     </div>
 
     <div class="footer">校园安全平台.com © 2022</div>
@@ -301,10 +357,26 @@ const toDetail = (type: string) => {
   .container {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 60%;
     justify-content: center;
     margin-bottom: 40px;
     margin-top: 20px;
+
+    .n-carousel {
+      margin-right: 30px;
+
+      .carousel-img {
+        width: 100%;
+      }
+    }
+
+    // n-tab组件class
+    .n-tabs {
+      background-color: white;
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow: 5px 5px 10px #999;
+    }
 
     .information {
       position: relative;
@@ -376,6 +448,74 @@ const toDetail = (type: string) => {
         margin-bottom: 50px;
         text-indent: 2em;
         text-align: left;
+      }
+    }
+  }
+
+  // 指示按钮
+  .tab {
+    font-size: 16px;
+    color: black;
+    display: flex;
+    color: whitesmoke;
+    padding-left: 20px;
+    margin-bottom: 20px;
+
+    span {
+      background-color: #2d62ac;
+      padding: 10px;
+      border-radius: 5px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  }
+
+  .bottom-carousel {
+    width: 40%;
+    text-align: center;
+    margin: 0 auto;
+    // background-color: red;
+
+    .n-carousel {
+      width: 79%;
+      height: 400px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 0 auto 20px auto;
+
+      $transition: 0.2s linear;
+
+      a {
+        .carousel-img {
+          width: 100%;
+          transition: $transition;
+
+          &:hover {
+            transform: scale(1.1, 1.1);
+            transition: $transition;
+          }
+        }
+
+        .title {
+          width: 100%;
+          height: 100px;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background-color: white;
+          color: #333333;
+          font-weight: bolder;
+          font-size: 20px;
+          padding-top: 20px;
+        }
+
+        &:hover {
+          .title {
+            color: #ffffff;
+            background-color: #2d62ac;
+            transition: all .1s;
+          }
+        }
       }
     }
   }
