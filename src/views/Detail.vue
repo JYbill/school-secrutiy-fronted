@@ -244,7 +244,7 @@ const reportArticle = () => {
   border: 1px solid black;
   text-align: left;
   border-radius: 0 10px 10px 0;
-  background-color: #333;
+  background-color: #ffffff;
 
   .n-menu {
     .n-menu-item-group-title {
